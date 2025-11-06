@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: uvm_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: uvm_root_password
+      MYSQL_DATABASE: uvm_inventario
+      MYSQL_USER: uvm_user
+      MYSQL_PASSWORD: uvm_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./db/uvm_inventario.sql:/docker-entrypoint-initdb.d/uvm_inventario.sql
+    networks:
+      - uvm_network
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    container_name: uvm_api
+    environment:
+      DB_HOST: mysql
+      DB_USER: uvm_user
+      DB_PASSWORD: uvm_password
+      DB_NAME: uvm_inventario
+      JWT_SECRET: uvm_jwt_secret_2024
+      NODE_ENV: production
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mysql
+    networks:
+      - uvm_network
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+    container_name: uvm_web
+    ports:
+      - "5173:80"
+    depends_on:
+      - api
+    networks:
+      - uvm_network
+
+networks:
+  uvm_network:
+    driver: bridge
+
+volumes:
+  mysql_data:

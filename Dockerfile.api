@@ -1,0 +1,15 @@
+FROM node:18-alpine
+
+WORKDIR /app
+
+COPY api/package*.json ./
+RUN npm ci --only=production
+
+COPY api/ ./
+COPY db/uvm_inventario.sql ./db/
+
+EXPOSE 3000
+
+USER node
+
+CMD ["node", "server.js"]
