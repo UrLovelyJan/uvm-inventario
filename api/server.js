@@ -5,13 +5,13 @@ import rateLimit from 'express-rate-limit';
 import dotenv from 'dotenv';
 
 // Importar rutas
-import authRoutes from './routes/auth.js';
-import sedesRoutes from './routes/sedes.js';
-import laboratoriosRoutes from './routes/laboratorios.js';
-import equiposRoutes from './routes/equipos.js';
-import movimientosRoutes from './routes/movimientos.js';
-import historialRoutes from './routes/historial.js';
-import dashboardRoutes from './routes/dashboard.js';
+import authRoutes from './routes/auth.ts';
+import sedesRoutes from './routes/sedes.ts';
+import laboratoriosRoutes from './routes/laboratorios.ts';
+import equiposRoutes from './routes/equipos.ts';
+import movimientosRoutes from './routes/movimientos.ts';
+import historialRoutes from './routes/historial.ts';
+import dashboardRoutes from './routes/dashboard.ts';
 
 dotenv.config();
 
