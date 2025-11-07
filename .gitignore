@@ -45,4 +45,3 @@ build/
 
 # Database
 *.db
-*.sqlite
